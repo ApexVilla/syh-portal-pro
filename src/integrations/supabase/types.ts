@@ -14,7 +14,216 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      clientes: {
+        Row: {
+          cod_cliente: string
+          email: string | null
+          limite_credito: number | null
+          nom_cliente: string | null
+          rif_cliente: string | null
+          saldo_actual: number | null
+          sincronizado_em: string | null
+          status: string | null
+          telefono: string | null
+        }
+        Insert: {
+          cod_cliente: string
+          email?: string | null
+          limite_credito?: number | null
+          nom_cliente?: string | null
+          rif_cliente?: string | null
+          saldo_actual?: number | null
+          sincronizado_em?: string | null
+          status?: string | null
+          telefono?: string | null
+        }
+        Update: {
+          cod_cliente?: string
+          email?: string | null
+          limite_credito?: number | null
+          nom_cliente?: string | null
+          rif_cliente?: string | null
+          saldo_actual?: number | null
+          sincronizado_em?: string | null
+          status?: string | null
+          telefono?: string | null
+        }
+        Relationships: []
+      }
+      cxc: {
+        Row: {
+          cod_cliente: string | null
+          dias_vencido: number | null
+          fecha_doc: string | null
+          fecha_vence: string | null
+          monto_doc: number | null
+          monto_pagado: number | null
+          nom_cliente: string | null
+          num_doc: string
+          saldo: number | null
+          sincronizado_em: string | null
+        }
+        Insert: {
+          cod_cliente?: string | null
+          dias_vencido?: number | null
+          fecha_doc?: string | null
+          fecha_vence?: string | null
+          monto_doc?: number | null
+          monto_pagado?: number | null
+          nom_cliente?: string | null
+          num_doc: string
+          saldo?: number | null
+          sincronizado_em?: string | null
+        }
+        Update: {
+          cod_cliente?: string | null
+          dias_vencido?: number | null
+          fecha_doc?: string | null
+          fecha_vence?: string | null
+          monto_doc?: number | null
+          monto_pagado?: number | null
+          nom_cliente?: string | null
+          num_doc?: string
+          saldo?: number | null
+          sincronizado_em?: string | null
+        }
+        Relationships: []
+      }
+      cxp: {
+        Row: {
+          cod_proveedor: string | null
+          dias_vencido: number | null
+          fecha_doc: string | null
+          fecha_vence: string | null
+          monto_doc: number | null
+          monto_pagado: number | null
+          nom_proveedor: string | null
+          num_doc: string
+          saldo: number | null
+          sincronizado_em: string | null
+        }
+        Insert: {
+          cod_proveedor?: string | null
+          dias_vencido?: number | null
+          fecha_doc?: string | null
+          fecha_vence?: string | null
+          monto_doc?: number | null
+          monto_pagado?: number | null
+          nom_proveedor?: string | null
+          num_doc: string
+          saldo?: number | null
+          sincronizado_em?: string | null
+        }
+        Update: {
+          cod_proveedor?: string | null
+          dias_vencido?: number | null
+          fecha_doc?: string | null
+          fecha_vence?: string | null
+          monto_doc?: number | null
+          monto_pagado?: number | null
+          nom_proveedor?: string | null
+          num_doc?: string
+          saldo?: number | null
+          sincronizado_em?: string | null
+        }
+        Relationships: []
+      }
+      estoque: {
+        Row: {
+          cod_articulo: string
+          existencia: number | null
+          existencia_minima: number | null
+          grupo: string | null
+          nom_articulo: string | null
+          nom_grupo: string | null
+          precio1: number | null
+          precio2: number | null
+          sincronizado_em: string | null
+          status: string | null
+        }
+        Insert: {
+          cod_articulo: string
+          existencia?: number | null
+          existencia_minima?: number | null
+          grupo?: string | null
+          nom_articulo?: string | null
+          nom_grupo?: string | null
+          precio1?: number | null
+          precio2?: number | null
+          sincronizado_em?: string | null
+          status?: string | null
+        }
+        Update: {
+          cod_articulo?: string
+          existencia?: number | null
+          existencia_minima?: number | null
+          grupo?: string | null
+          nom_articulo?: string | null
+          nom_grupo?: string | null
+          precio1?: number | null
+          precio2?: number | null
+          sincronizado_em?: string | null
+          status?: string | null
+        }
+        Relationships: []
+      }
+      sync_log: {
+        Row: {
+          id: string
+          status: string | null
+          tabela: string
+          total_registros: number | null
+          ultima_sync: string | null
+        }
+        Insert: {
+          id?: string
+          status?: string | null
+          tabela: string
+          total_registros?: number | null
+          ultima_sync?: string | null
+        }
+        Update: {
+          id?: string
+          status?: string | null
+          tabela?: string
+          total_registros?: number | null
+          ultima_sync?: string | null
+        }
+        Relationships: []
+      }
+      vendas: {
+        Row: {
+          cod_cliente: string | null
+          fecha_doc: string | null
+          nom_cliente: string | null
+          num_doc: string
+          sincronizado_em: string | null
+          status_doc: string | null
+          tipo_doc: string | null
+          total_doc: number | null
+        }
+        Insert: {
+          cod_cliente?: string | null
+          fecha_doc?: string | null
+          nom_cliente?: string | null
+          num_doc: string
+          sincronizado_em?: string | null
+          status_doc?: string | null
+          tipo_doc?: string | null
+          total_doc?: number | null
+        }
+        Update: {
+          cod_cliente?: string | null
+          fecha_doc?: string | null
+          nom_cliente?: string | null
+          num_doc?: string
+          sincronizado_em?: string | null
+          status_doc?: string | null
+          tipo_doc?: string | null
+          total_doc?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
