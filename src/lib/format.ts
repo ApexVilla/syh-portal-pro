@@ -1,25 +1,57 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+/** Formato venezolano: 1.234.567,00 Bs */
 export function formatCurrency(value: number | null | undefined, currency: string = 'USD'): string {
-  if (value == null) return '$0.00';
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency,
-    minimumFractionDigits: 2,
-  }).format(value);
+  if (value == null || isNaN(Number(value))) return 'Bs 0,00';
+  try {
+    const num = Number(value);
+    const formatted = new Intl.NumberFormat('es-VE', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(num);
+    if (currency === 'USD') return `$ ${formatted}`;
+    return `Bs ${formatted}`;
+  } catch {
+    return `${value}`;
+  }
+}
+
+/** Display dual: "Bs 1.500,00 | $ 75,00" */
+export function formatDualCurrency(valorBs: number | null | undefined, tasaCambio: number | null | undefined): string {
+  if (valorBs == null) return '-';
+  const bs = formatCurrency(valorBs, 'VES');
+  if (tasaCambio && tasaCambio > 1) {
+    const usd = formatCurrency(valorBs / tasaCambio, 'USD');
+    return `${bs} | ${usd}`;
+  }
+  return bs;
 }
 
 export function formatNumber(value: number | null | undefined): string {
   if (value == null) return '0';
-  return new Intl.NumberFormat('en-US').format(value);
+  return new Intl.NumberFormat('es-VE').format(value);
 }
 
 export function formatDate(date: string | null | undefined): string {
   if (!date) return '-';
-  return new Date(date).toLocaleDateString('pt-BR');
+  try {
+    const d = new Date(date);
+    if (isNaN(d.getTime())) return '-';
+    return d.toLocaleDateString('es-VE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  } catch {
+    return '-';
+  }
 }
 
 export function formatDateTime(date: string | null | undefined): string {
   if (!date) return '-';
-  return new Date(date).toLocaleString('pt-BR');
+  try {
+    const d = new Date(date);
+    if (isNaN(d.getTime())) return '-';
+    return d.toLocaleString('es-VE');
+  } catch {
+    return '-';
+  }
 }
 
 export function timeAgo(date: string | null | undefined): { text: string; minutes: number } {
@@ -28,7 +60,7 @@ export function timeAgo(date: string | null | undefined): { text: string; minute
   const then = new Date(date);
   const diffMs = now.getTime() - then.getTime();
   const diffMin = Math.floor(diffMs / 60000);
-  if (diffMin < 1) return { text: 'Agora mesmo', minutes: 0 };
+  if (diffMin < 1) return { text: 'Ahora mismo', minutes: 0 };
   if (diffMin < 60) return { text: `${diffMin} min atrás`, minutes: diffMin };
   const diffHours = Math.floor(diffMin / 60);
   if (diffHours < 24) return { text: `${diffHours}h atrás`, minutes: diffMin };

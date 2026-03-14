@@ -7,11 +7,12 @@ import { AuthProvider, useAuth } from "@/hooks/useAuth";
 import { AppLayout } from "@/components/AppLayout";
 import Login from "@/pages/Login";
 import Dashboard from "@/pages/Dashboard";
-import Vendas from "@/pages/Vendas";
+import Ventas from "@/pages/Ventas";
 import Clientes from "@/pages/Clientes";
-import Estoque from "@/pages/Estoque";
+import Inventario from "@/pages/Inventario";
 import CXC from "@/pages/CXC";
 import CXP from "@/pages/CXP";
+import Proveedores from "@/pages/Proveedores";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,14 +39,17 @@ const AppRoutes = () => (
   <Routes>
     <Route path="/login" element={<AuthRoute><Login /></AuthRoute>} />
     <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-    <Route path="/vendas" element={<ProtectedRoute><Vendas /></ProtectedRoute>} />
+    <Route path="/vendas" element={<ProtectedRoute><Ventas /></ProtectedRoute>} />
     <Route path="/clientes" element={<ProtectedRoute><Clientes /></ProtectedRoute>} />
-    <Route path="/estoque" element={<ProtectedRoute><Estoque /></ProtectedRoute>} />
+    <Route path="/estoque" element={<ProtectedRoute><Inventario /></ProtectedRoute>} />
     <Route path="/cxc" element={<ProtectedRoute><CXC /></ProtectedRoute>} />
     <Route path="/cxp" element={<ProtectedRoute><CXP /></ProtectedRoute>} />
+    <Route path="/proveedores" element={<ProtectedRoute><Proveedores /></ProtectedRoute>} />
     <Route path="*" element={<NotFound />} />
   </Routes>
 );
+
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -54,7 +58,9 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <AuthProvider>
-          <AppRoutes />
+          <ErrorBoundary>
+            <AppRoutes />
+          </ErrorBoundary>
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>

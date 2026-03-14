@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Loader2, Shield } from 'lucide-react';
 import { toast } from 'sonner';
+import { cn } from '@/lib/utils';
 
 export default function Login() {
   const { signIn } = useAuth();
@@ -17,7 +18,8 @@ export default function Login() {
     setLoading(true);
     const { error } = await signIn(email, password);
     if (error) {
-      toast.error('Erro ao entrar: ' + error.message);
+      const err = error as Error;
+      toast.error('Erro ao entrar: ' + err.message);
     }
     setLoading(false);
   };
@@ -31,11 +33,11 @@ export default function Login() {
       <div className="relative z-10 w-full max-w-md p-8">
         <div className="glass-card p-8 space-y-8">
           <div className="text-center space-y-3">
-            <div className="mx-auto w-16 h-16 rounded-2xl gradient-primary flex items-center justify-center mb-4">
-              <Shield className="w-8 h-8 text-foreground" />
+            <div className="mx-auto w-20 h-20 rounded-2xl overflow-hidden shadow-xl mb-4">
+              <img src="/logo.png" alt="Logo" className="w-full h-full object-cover" />
             </div>
             <h1 className="text-3xl font-bold text-foreground tracking-tight">SYH Portal</h1>
-            <p className="text-muted-foreground text-sm">Sistema de Gestão Empresarial</p>
+            <p className="text-muted-foreground text-sm uppercase tracking-widest font-medium">Business Management System</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
@@ -63,9 +65,16 @@ export default function Login() {
                 className="bg-accent/50 border-border/50 text-foreground placeholder:text-muted-foreground/50"
               />
             </div>
-            <Button type="submit" className="w-full gradient-primary text-foreground font-semibold h-11" disabled={loading}>
-              {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
-              Entrar
+            <Button type="submit" className="w-full gradient-primary text-foreground font-semibold h-11 relative overflow-hidden" disabled={loading}>
+              <div 
+                className={cn(
+                  "absolute inset-0 flex items-center justify-center bg-inherit transition-all duration-200",
+                  loading ? "opacity-100 visible" : "opacity-0 invisible"
+                )}
+              >
+                <Loader2 className="w-5 h-5 animate-spin" />
+              </div>
+              <span className={loading ? "opacity-0" : "opacity-100"}>Entrar</span>
             </Button>
           </form>
         </div>
